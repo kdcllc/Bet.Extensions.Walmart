@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E89C6F99-473A-4D76-A05E-96C6D017C41E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bet.Extensions.Walmart", "src\Bet.Extensions.Walmart\Bet.Extensions.Walmart.csproj", "{F9998530-2A6D-4339-8EAC-5E2D9A6E14EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C933A9BF-19B2-494B-8959-3AE22847FBDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bet.Extensions.Walmart.UnitTest", "test\Bet.Extensions.Walmart.UnitTest\Bet.Extensions.Walmart.UnitTest.csproj", "{3EC75C14-5D5F-41DE-9B21-EE33C58F050B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DD4D2D3F-F4E2-4D32-AC65-6ED8D78F5400}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		clean.sh = clean.sh
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		GitVersion.yml = GitVersion.yml
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{D82BB930-DF2F-4159-BB17-34D77C436704}"
+	ProjectSection(SolutionItems) = preProject
+		build\dependencies.props = build\dependencies.props
+		build\settings.props = build\settings.props
+		build\sources.props = build\sources.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9998530-2A6D-4339-8EAC-5E2D9A6E14EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9998530-2A6D-4339-8EAC-5E2D9A6E14EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9998530-2A6D-4339-8EAC-5E2D9A6E14EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9998530-2A6D-4339-8EAC-5E2D9A6E14EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EC75C14-5D5F-41DE-9B21-EE33C58F050B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EC75C14-5D5F-41DE-9B21-EE33C58F050B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EC75C14-5D5F-41DE-9B21-EE33C58F050B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EC75C14-5D5F-41DE-9B21-EE33C58F050B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F9998530-2A6D-4339-8EAC-5E2D9A6E14EC} = {E89C6F99-473A-4D76-A05E-96C6D017C41E}
+		{3EC75C14-5D5F-41DE-9B21-EE33C58F050B} = {C933A9BF-19B2-494B-8959-3AE22847FBDA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD7E833F-A9AC-453A-8DD7-9BD74547A1B5}
+	EndGlobalSection
+EndGlobal

@@ -1,6 +1,8 @@
 # Bet.Extensions.Walmart
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kdcllc/Bet.Extensions.Walmart/master/LICENSE)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://raw.githubusercontent.com/kdcllc/Bet.Extensions.Walmart/master/LICENSE)
+![Master CI](https://github.com/kdcllc/Bet.Extensions.Walmart/actions/workflows/master.yml/badge.svg)
+![Dev CI](https://github.com/kdcllc/Bet.Extensions.Walmart/actions/workflows/dev.yml/badge.svg)
 [![NuGet](https://img.shields.io/nuget/v/Bet.Extensions.Walmart.svg)](https://www.nuget.org/packages?q=Bet.Extensions.Walmart)
 ![Nuget](https://img.shields.io/nuget/dt/Bet.Extensions.Walmart)
 [![feedz.io](https://img.shields.io/badge/endpoint.svg?url=https://f.feedz.io/kdcllc/bet-extensions-walmart/shield/Bet.Extensions.Walmart/latest)](https://f.feedz.io/kdcllc/bet-extensions-walmart/packages/Bet.Extensions.Walmart/latest/download)
@@ -31,3 +33,10 @@ If you like or are using this project to learn or start your solution, please gi
 ```csharp
     dotnet add package Bet.Extensions.Walmart
 ```
+
+## Implemented
+
+### [Authentication & Authorization Management](https://developer.walmart.com/api/us/mp/auth)
+
+- [x] Token Detail
+- [x] Token API

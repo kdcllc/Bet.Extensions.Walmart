@@ -38,5 +38,16 @@ If you like or are using this project to learn or start your solution, please gi
 
 ### [Authentication & Authorization Management](https://developer.walmart.com/api/us/mp/auth)
 
-- [x] Token Detail
-- [x] Token API
+- [x] [Token Detail](https://developer.walmart.com/api/us/mp/auth#operation/getTokenDetail)
+- [x] [Token API](https://developer.walmart.com/api/us/mp/auth#operation/tokenAPI)
+
+## [Item Management](https://developer.walmart.com/api/us/mp/items)
+- [x] [Retire an item](https://developer.walmart.com/api/us/mp/items#operation/retireAnItem)
+- [x] [Get Item Associations](https://developer.walmart.com/api/us/mp/items#operation/getItemAssociations)
+- [x] [Taxonomy](https://developer.walmart.com/api/us/mp/items#operation/getTaxonomyResponse)
+- [ ] [Get items count by status](https://developer.walmart.com/api/us/mp/items#operation/getCountByStatus)
+- [ ] [Item Search](https://developer.walmart.com/api/us/mp/items#operation/getSearchResult)
+- [x] [All items](https://developer.walmart.com/api/us/mp/items#operation/getAllItems)
+- [x] [An item](https://developer.walmart.com/api/us/mp/items#operation/getAnItem)
+- [ ] [Catalog Search](https://developer.walmart.com/api/us/mp/items#operation/getCatalogSearch)
+- [ ] [Bulk Item Setup (Multiple)](https://developer.walmart.com/api/us/mp/items#operation/itemBulkUploads)

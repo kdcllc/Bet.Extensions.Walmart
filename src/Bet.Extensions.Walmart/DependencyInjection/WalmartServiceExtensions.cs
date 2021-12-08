@@ -1,7 +1,7 @@
-﻿
-using Bet.Extensions.Walmart.Abstractions;
+﻿using Bet.Extensions.Walmart.Abstractions;
 using Bet.Extensions.Walmart.Abstractions.Options;
 using Bet.Extensions.Walmart.Authorize;
+using Bet.Extensions.Walmart.Clients;
 using Bet.Extensions.Walmart.Clients.Impl;
 
 using Microsoft.Extensions.Logging;
@@ -51,6 +51,8 @@ public static class WalmartServiceExtensions
                                          .RetryAsync(options.Retry)
                                          .WithPolicyKey("WalmartTransientHttpPolicy");
                 });
+
+        services.AddTransient<IWalmartItemsClient, WalmartItemsClient>();
 
         return services;
     }

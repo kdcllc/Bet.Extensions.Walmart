@@ -36,7 +36,7 @@ public class AuthorizeHandler : DelegatingHandler
         var activity = new Activity(nameof(AuthorizeHandler)).Start();
 
         request.Headers.Remove(WalmartHeaders.CorrelationId);
-        request.Headers.Add(WalmartHeaders.CorrelationId, Activity.Current.TraceId.ToString());
+        request.Headers.Add(WalmartHeaders.CorrelationId, Activity.Current?.TraceId.ToString() ?? Guid.NewGuid().ToString());
 
         if (string.IsNullOrEmpty(_accessToken))
         {
@@ -89,18 +89,18 @@ public class AuthorizeHandler : DelegatingHandler
 
             requestMessage.Headers.Add("Accept", "application/json");
 
-            var authHeader = ($"{_options.ClientId}:{_options.ClientSecret}").ToBase64String();
+            var authHeader = $"{_options?.ClientId}:{_options?.ClientSecret}"?.ToBase64String();
 
             requestMessage.Headers.Add("Authorization", $"Basic {authHeader}");
 
             requestMessage.Headers.Add(WalmartHeaders.ServiceName, nameof(AuthorizeHandler));
 
-            requestMessage.Headers.Add(WalmartHeaders.CorrelationId, Activity.Current.TraceId.ToString());
+            requestMessage.Headers.Add(WalmartHeaders.CorrelationId, Activity.Current?.TraceId.ToString());
 
             var response = await base.SendAsync(requestMessage, cancellation).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
-                var content = (await response?.Content?.ReadAsStringAsync()) ?? string.Empty;
+                var content = (await response.Content.ReadAsStringAsync()) ?? string.Empty;
 
                 throw new AuthorizeHandlerException(response.StatusCode, $"Failed to authenticate {request.RequestUri} {content}with API. Please check your credentials.");
             }

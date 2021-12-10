@@ -4,12 +4,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<UserSecretsId>dotnet-bet.extensions.walmart.worker-478E7A1B-8357-4013-AE96-D1AFBE84DEF9</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-	</PropertyGroup>
-
-	<PropertyGroup>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<LangVersion>latest</LangVersion>
-		<Nullable>enable</Nullable>
+		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
 	<ItemGroup>

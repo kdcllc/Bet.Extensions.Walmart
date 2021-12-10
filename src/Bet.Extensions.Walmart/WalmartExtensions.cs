@@ -30,4 +30,37 @@ public static class WalmartExtensions
 
         return requestUri;
     }
+
+    public static async Task<WalmartHttpRequestException?> ValidateAsync(
+        this HttpResponseMessage response,
+        Stream? content,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            response.EnsureSuccessStatusCode();
+        }
+        catch (HttpRequestException ex)
+        {
+            var wex = new WalmartHttpRequestException($"Walmart Api failed", ex, ex.StatusCode);
+
+            if (content != null)
+            {
+                try
+                {
+                    using var streamReader = new StreamReader(content);
+                    var json = await streamReader.ReadToEndAsync();
+
+                    var exp = new WalmartHttpRequestException($"Walmart Api failed: '{json}'", ex, ex.StatusCode);
+                    exp.ResponseData = json;
+                    return exp;
+                }
+                catch { }
+            }
+
+            return wex;
+        }
+
+        return null;
+    }
 }

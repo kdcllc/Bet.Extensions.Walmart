@@ -51,3 +51,12 @@ If you like or are using this project to learn or start your solution, please gi
 - [x] [An item](https://developer.walmart.com/api/us/mp/items#operation/getAnItem)
 - [ ] [Catalog Search](https://developer.walmart.com/api/us/mp/items#operation/getCatalogSearch)
 - [ ] [Bulk Item Setup (Multiple)](https://developer.walmart.com/api/us/mp/items#operation/itemBulkUploads)
+
+## [Notifications Management](https://developer.walmart.com/api/us/mp/notifications)
+- [x] [All subscriptions](https://developer.walmart.com/api/us/mp/notifications#operation/getAllSubscriptions)
+- [x] [Create subscription](https://developer.walmart.com/api/us/mp/notifications#operation/createSubscription)
+- [x] [Delete Subscription](https://developer.walmart.com/api/us/mp/notifications#operation/deleteSubscription)
+- [x] [Update Subscription](https://developer.walmart.com/api/us/mp/notifications#operation/updateSubscription)
+- [x] [Test Notification](https://developer.walmart.com/api/us/mp/notifications#operation/testNotification)
+- [x] [Event Types](https://developer.walmart.com/api/us/mp/notifications#operation/getEventTypes)
+      

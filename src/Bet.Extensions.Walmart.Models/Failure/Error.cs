@@ -23,3 +23,5 @@ public class Error
     [JsonPropertyName("errorIdentifiers")]
     public ErrorIdentifiers? ErrorIdentifiers { get; set; }
 }
+
+

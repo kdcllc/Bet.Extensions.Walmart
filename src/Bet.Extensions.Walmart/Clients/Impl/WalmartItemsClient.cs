@@ -6,7 +6,6 @@ using Bet.Extensions.Walmart.Abstractions;
 using Bet.Extensions.Walmart.Abstractions.Extensions;
 using Bet.Extensions.Walmart.Abstractions.Options;
 using Bet.Extensions.Walmart.Models;
-using Bet.Extensions.Walmart.Models.Failure;
 using Bet.Extensions.Walmart.Models.Items;
 using Bet.Extensions.Walmart.Models.Items.Queries;
 
@@ -20,6 +19,7 @@ internal class WalmartItemsClient : IWalmartItemsClient
     private readonly IWalmartBaseClient _client;
     private readonly ILogger<WalmartItemsClient> _logger;
     private readonly WalmartOptions _options;
+    private readonly string _baseUrl;
 
     public WalmartItemsClient(
         IWalmartBaseClient client,
@@ -29,20 +29,20 @@ internal class WalmartItemsClient : IWalmartItemsClient
         _client = client ?? throw new ArgumentNullException(nameof(client));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _options = options.Value;
+
+        _baseUrl = $"/{_options.Version}/items/";
     }
 
     /// <inheritdoc/>
-    public async IAsyncEnumerable<Item> ListAllAsync(ItemsQuery query, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<Item> ListAllAsync(ItemQuery query, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         string? cursor;
         do
         {
-            var requestUri = $"/{_options.Version}/items/";
-
             var parameters = query.ToKeyValuePair();
-            var url = parameters.CompileRequestUri(requestUri);
+            var url = parameters.CompileRequestUri(_baseUrl);
 
-            var response = await _client.HttpClient.GetFromJsonAsync<ItemResponse>(url, cancellationToken);
+            var response = await _client.HttpClient.GetFromJsonAsync<ItemList>(url, cancellationToken);
             cursor = response?.NextCursor;
 
             if (cursor != null)
@@ -62,14 +62,12 @@ internal class WalmartItemsClient : IWalmartItemsClient
     }
 
     /// <inheritdoc/>
-    public async Task<IEnumerable<Item>?> ListAsync(ItemsQuery query, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Item>?> ListAsync(ItemQuery query, CancellationToken cancellationToken)
     {
-        var requestUri = $"/{_options.Version}/items/";
-
         var parameters = query.ToKeyValuePair();
-        var url = parameters.CompileRequestUri(requestUri);
+        var url = parameters.CompileRequestUri(_baseUrl);
 
-        var response = await _client.HttpClient.GetFromJsonAsync<ItemResponse>(url, cancellationToken);
+        var response = await _client.HttpClient.GetFromJsonAsync<ItemList>(url, cancellationToken);
 
         return response?.Items;
     }
@@ -77,11 +75,11 @@ internal class WalmartItemsClient : IWalmartItemsClient
     /// <inheritdoc/>
     public async Task<Item?> GetAsync(string id, ProductTypeEnum productType, CancellationToken cancellationToken)
     {
-        var requestUri = $"/{_options.Version}/items/{id}";
+        var requestUri = $"{_baseUrl}{id}";
 
         requestUri += $"?productIdType={productType}";
 
-        var response = await _client.HttpClient.GetFromJsonAsync<ItemResponse>(requestUri, cancellationToken);
+        var response = await _client.HttpClient.GetFromJsonAsync<ItemList>(requestUri, cancellationToken);
 
         return response?.Items?.FirstOrDefault();
     }
@@ -89,9 +87,9 @@ internal class WalmartItemsClient : IWalmartItemsClient
     /// <inheritdoc/>
     public async Task<Item?> GetAsync(string id, CancellationToken cancellationToken)
     {
-        var requestUri = $"/{_options.Version}/items/{id}";
+        var requestUri = $"{_baseUrl}{id}";
 
-        var response = await _client.HttpClient.GetFromJsonAsync<ItemResponse>(requestUri, cancellationToken);
+        var response = await _client.HttpClient.GetFromJsonAsync<ItemList>(requestUri, cancellationToken);
 
         return response?.Items?.FirstOrDefault();
     }
@@ -99,7 +97,7 @@ internal class WalmartItemsClient : IWalmartItemsClient
     /// <inheritdoc/>
     public async Task<Taxonomy?> GetTaxonomyAsync(CancellationToken cancellationToken)
     {
-        var requestUri = $"/{_options.Version}/items/taxonomy/";
+        var requestUri = $"{_baseUrl}items/taxonomy/";
         var response = await _client.HttpClient.GetFromJsonAsync<Taxonomy>(requestUri, cancellationToken);
         return response;
     }
@@ -107,7 +105,7 @@ internal class WalmartItemsClient : IWalmartItemsClient
     /// <inheritdoc/>
     public async Task DeleteAsync(string sku, CancellationToken cancellationToken)
     {
-        var requestUri = $"/{_options.Version}/items/{sku}";
+        var requestUri = $"{_options.Version}/items/{sku}";
 
         await _client.HttpClient.DeleteAsync(requestUri, cancellationToken);
     }
@@ -115,7 +113,7 @@ internal class WalmartItemsClient : IWalmartItemsClient
     /// <inheritdoc/>
     public async Task<IEnumerable<ItemAssociations>?> GetItemAssociationsAsync(IList<string> skus, CancellationToken cancellationToken)
     {
-        var requestUri = $"/{_options.Version}/items/associations";
+        var requestUri = $"{_options.Version}/items/associations";
 
         var list = new List<ItemAssociations>();
 
@@ -124,33 +122,26 @@ internal class WalmartItemsClient : IWalmartItemsClient
             list.Add(new ItemAssociations { Sku = sku });
         }
 
-        var requestData = new ItemAssociationsResponse
+        var requestData = new ItemAssociationsList
         {
             Items = list.ToArray()
         };
 
-        var response = await _client.HttpClient.PostAsJsonAsync<ItemAssociationsResponse>(
+        var response = await _client.HttpClient.PostAsJsonAsync<ItemAssociationsList>(
             requestUri,
             requestData,
             DefaultJsonSerializer.Options,
             cancellationToken);
         var content = await response.Content.ReadAsStreamAsync(cancellationToken);
 
-        try
+        var ex = await response.ValidateAsync(content, cancellationToken);
+        if (ex != null)
         {
-            response.EnsureSuccessStatusCode();
-        }
-        catch (HttpRequestException ex)
-        {
-            var error = await JsonSerializer.DeserializeAsync<ErrorResponse>(content, DefaultJsonSerializer.Options, cancellationToken);
-
-            _logger.LogError(ex, error?.Errors?[0]?.Description);
+            _logger.LogError(ex, "{name}", nameof(GetItemAssociationsAsync));
             return null;
         }
 
-
-
-        var result = await JsonSerializer.DeserializeAsync<ItemAssociationsResponse>(content, DefaultJsonSerializer.Options, cancellationToken);
+        var result = await JsonSerializer.DeserializeAsync<ItemAssociationsList>(content, DefaultJsonSerializer.Options, cancellationToken);
 
         return result?.Items;
     }

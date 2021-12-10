@@ -1,6 +1,6 @@
 ﻿namespace Bet.Extensions.Walmart.Models.Items.Queries;
 
-public class ItemsQuery
+public class ItemQuery
 {
     /// <summary>
     /// Default: "*"

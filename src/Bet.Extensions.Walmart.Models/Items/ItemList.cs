@@ -1,6 +1,6 @@
 ﻿namespace Bet.Extensions.Walmart.Models.Items;
 
-public class ItemResponse
+public class ItemList
 {
     [JsonPropertyName("ItemResponse")]
     public Item[]? Items { get; set; }

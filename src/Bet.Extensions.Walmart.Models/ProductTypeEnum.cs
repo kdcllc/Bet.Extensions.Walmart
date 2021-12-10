@@ -1,12 +1,11 @@
-﻿namespace Bet.Extensions.Walmart.Models
+﻿namespace Bet.Extensions.Walmart.Models;
+
+public enum ProductTypeEnum
 {
-    public enum ProductTypeEnum
-    {
-        SKU,
-        GTIN,
-        UPC,
-        ISBN,
-        EAN,
-        ITEM_ID
-    }
+    SKU,
+    GTIN,
+    UPC,
+    ISBN,
+    EAN,
+    ITEM_ID
 }

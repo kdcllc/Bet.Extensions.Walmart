@@ -17,7 +17,7 @@ public interface IWalmartItemsClient
     /// <param name="query"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<IEnumerable<Item>?> ListAsync(ItemsQuery query, CancellationToken cancellationToken);
+    Task<IEnumerable<Item>?> ListAsync(ItemQuery query, CancellationToken cancellationToken);
 
     /// <summary>
     /// <para>Displays a list of all items by using either nextCursor or offset and limit query parameters.</para>
@@ -26,7 +26,7 @@ public interface IWalmartItemsClient
     /// <param name="query"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    IAsyncEnumerable<Item> ListAllAsync(ItemsQuery query, CancellationToken cancellationToken);
+    IAsyncEnumerable<Item> ListAllAsync(ItemQuery query, CancellationToken cancellationToken);
 
     /// <summary>
     /// <para>Retrieves an item and displays the item details.</para>

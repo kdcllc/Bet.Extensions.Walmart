@@ -88,7 +88,8 @@ internal class WalmartNotificationsClient : IWalmartNotificationsClient
             return null;
         }
 
-        return await JsonSerializer.DeserializeAsync<SubscriptionEvent>(content, DefaultJsonSerializer.Options, cancellationToken);
+        var result = await JsonSerializer.DeserializeAsync<SubscriptionEventList>(content, DefaultJsonSerializer.Options, cancellationToken);
+        return result?.Events?.SingleOrDefault();
     }
 
     /// <inheritdoc/>

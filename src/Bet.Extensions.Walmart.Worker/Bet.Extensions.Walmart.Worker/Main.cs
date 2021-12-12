@@ -49,37 +49,47 @@ public class Main : IMain
         // use this token for stopping the services
         var cancellationToken = _applicationLifetime.ApplicationStopping;
 
-        var subscriptions = await _walmartNotificationsClient.ListAllAsync(cancellationToken);
-        var eventTypes = await _walmartNotificationsClient.ListAllEventTypesAsync(cancellationToken);
-
-        var newEvents =
-            new SubscriptionEvent
-            {
-                EventType = nameof(EventTypeEnum.OFFER_UNPUBLISHED),
-                EventVersion = "V1",
-                ResourceName = nameof(ResourceNameEnum.ITEM),
-                EventUrl = "",
-                Status = nameof(StatusEnum.INACTIVE)
-            };
-
-        var createdSubscription = await _walmartNotificationsClient.CreateAsync(newEvents, cancellationToken);
-
-        var deletedResult = await _walmartNotificationsClient.DeleteAsync(createdSubscription.SubscriptionId, cancellationToken);
-
-        var testResult = await _walmartNotificationsClient.TestAsync(subscriptions.First(), cancellationToken);
-
-        var updateSubscription = new SubscriptionEvent
-        {
-            Status = nameof(StatusEnum.ACTIVE),
-        };
-
-        var updatedSubscriptions = await _walmartNotificationsClient.UpdateAsync("69782e40-157a-11ec-b858-e7b871ef73d8", updateSubscription, cancellationToken);
+        await TestingNotificationsAsync(cancellationToken);
 
         // await TestingItemsAsync(cancellationToken);
         // await ListAllItemsAsync(cancellationToken);
         // await TokenDetailsAsync(cancellationToken);
 
         return 0;
+    }
+
+    private async Task TestingNotificationsAsync(CancellationToken cancellationToken)
+    {
+        // 1. create
+        var newEvents =
+            new SubscriptionEvent
+            {
+                EventType = nameof(EventTypeEnum.OFFER_UNPUBLISHED),
+                EventVersion = "V1",
+                ResourceName = nameof(ResourceNameEnum.ITEM),
+                EventUrl = "https://prod-09.eastus2.logic.azure.com:443/workflows/128cc6fed94d445f9ea9bf03c523aa8e/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=iMR9VlvNWlNYCRJRctFlxZoVQCknaQMJZyTc-NS6fZY",
+                Status = nameof(StatusEnum.INACTIVE)
+            };
+
+        var createdSubscription = await _walmartNotificationsClient.CreateAsync(newEvents, cancellationToken);
+
+        // 2. test
+        // var testResult = await _walmartNotificationsClient.TestAsync(createdSubscription, cancellationToken);
+
+        // 3. update
+        var updateSubscription = new SubscriptionEvent
+        {
+            Status = nameof(StatusEnum.ACTIVE),
+        };
+
+        var updatedSubscription = await _walmartNotificationsClient.UpdateAsync(createdSubscription.SubscriptionId, updateSubscription, cancellationToken);
+
+        // 4. delete
+        var deletedResult = await _walmartNotificationsClient.DeleteAsync(updatedSubscription.SubscriptionId, cancellationToken);
+        _logger.LogInformation("{deleteMessage}", deletedResult?.Message);
+
+        var subscriptions = await _walmartNotificationsClient.ListAllAsync(cancellationToken);
+        var eventTypes = await _walmartNotificationsClient.ListAllEventTypesAsync(cancellationToken);
     }
 
     /// <summary>

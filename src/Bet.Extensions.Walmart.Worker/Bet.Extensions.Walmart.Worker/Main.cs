@@ -67,7 +67,7 @@ public class Main : IMain
                 EventType = nameof(EventTypeEnum.OFFER_UNPUBLISHED),
                 EventVersion = "V1",
                 ResourceName = nameof(ResourceNameEnum.ITEM),
-                EventUrl = "https://prod-09.eastus2.logic.azure.com:443/workflows/128cc6fed94d445f9ea9bf03c523aa8e/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=iMR9VlvNWlNYCRJRctFlxZoVQCknaQMJZyTc-NS6fZY",
+                EventUrl = Configuration["WebhooksUrl"],
                 Status = nameof(StatusEnum.INACTIVE)
             };
 

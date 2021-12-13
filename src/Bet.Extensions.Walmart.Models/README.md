@@ -26,3 +26,13 @@ If you like or are using this project to learn or start your solution, please gi
 ```csharp
     dotnet add package Bet.Extensions.Walmart.Models
 ```
+
+
+## Notes
+
+```csharp
+    // Order dates conversion.
+    DateTimeOffset.FromUnixTimeMilliseconds(1637939712686)
+```
+
+Sandbox doesn't really allow for paging over the orders!

@@ -54,6 +54,7 @@ public static class WalmartServiceExtensions
 
         services.AddTransient<IWalmartItemsClient, WalmartItemsClient>();
         services.AddTransient<IWalmartNotificationsClient, WalmartNotificationsClient>();
+        services.AddTransient<IWalmartOrdersClient, WalmartOrdersClient>();
 
         return services;
     }

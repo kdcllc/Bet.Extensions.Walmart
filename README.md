@@ -60,3 +60,12 @@ If you like or are using this project to learn or start your solution, please gi
 - [x] [Test Notification](https://developer.walmart.com/api/us/mp/notifications#operation/testNotification)
 - [x] [Event Types](https://developer.walmart.com/api/us/mp/notifications#operation/getEventTypes)
       
+
+## [Orders](https://developer.walmart.com/api/us/mp/orders#tag/Orders)
+- [x] [All orders](https://developer.walmart.com/api/us/mp/orders#operation/getAllOrders)
+- [ ] [All released orders](https://developer.walmart.com/api/us/mp/orders#operation/getAllReleasedOrders)
+- [ ] [An order](https://developer.walmart.com/api/us/mp/orders#operation/getAnOrder)
+- [ ] [Acknowledge Orders](https://developer.walmart.com/api/us/mp/orders#operation/acknowledgeOrders)
+- [ ] [Cancel Order Lines](https://developer.walmart.com/api/us/mp/orders#operation/cancelOrderLines)
+- [ ] [Refund Order Lines](https://developer.walmart.com/api/us/mp/orders#operation/refundOrderLines)
+- [ ] [Ship Order Lines](https://developer.walmart.com/api/us/mp/orders#operation/shippingUpdates)

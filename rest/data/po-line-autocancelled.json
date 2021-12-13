@@ -1,0 +1,29 @@
+{
+    "source": {
+        "eventType": "PO_LINE_AUTOCANCELLED",
+        "eventTime": "2020-09-04T03:21:26.157Z",
+        "eventId": "b73933d0-ee5d-11ea-8615-632da992001e"
+    },
+    "payload": {
+        "partnerId": "10201030816",
+        "purchaseOrderId": "1806084584758",
+        "customerOrderId": "5092005686444",
+        "orderDate": "2020-08-25T18:21:27Z",
+        "estimatedDeliveryDate": "2020-09-04T19:00:00Z",
+        "estimatedShipDate": "2020-08-27T03:00:00Z",
+        "orderLines": [{
+            "lineNumber": "1",
+            "sku": "9133KHAKIL",
+            "productName": "Healing Hands Purple Label Women\u0027s Tori 5-Pocket Scrub Pant",
+            "quantity": {
+                "unitOfMeasure": "EACH",
+                "measurementValue": "1"
+            },
+            "status": "Cancelled",
+            "statusDate": "2020-09-04T03:21:26.051Z",
+            "shippingProgramType ": null,
+            "shippingMethod": "VALUE"
+        }],
+        "shipNodeType": "SellerFulfilled"
+    }
+}

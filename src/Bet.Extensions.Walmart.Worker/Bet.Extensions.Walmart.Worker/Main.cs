@@ -10,6 +10,7 @@ using Bet.Extensions.Walmart.Models.Authentication;
 using Bet.Extensions.Walmart.Models.Items;
 using Bet.Extensions.Walmart.Models.Items.Queries;
 using Bet.Extensions.Walmart.Models.Notifications;
+using Bet.Extensions.Walmart.Models.Orders.Queries;
 
 using Microsoft.Extensions.Options;
 
@@ -18,12 +19,14 @@ public class Main : IMain
     private readonly ILogger<Main> _logger;
     private readonly WalmartOptions _options;
     private readonly IWalmartBaseClient _baseClient;
+    private readonly IWalmartOrdersClient _walmartOrdersClient;
     private readonly IWalmartNotificationsClient _walmartNotificationsClient;
     private readonly IWalmartItemsClient _walmartItemsClient;
     private readonly IHostApplicationLifetime _applicationLifetime;
 
     public Main(
         IWalmartBaseClient baseClient,
+        IWalmartOrdersClient walmartOrdersClient,
         IWalmartNotificationsClient walmartNotificationsClient,
         IWalmartItemsClient walmartItemsClient,
         IOptions<WalmartOptions> options,
@@ -33,6 +36,7 @@ public class Main : IMain
     {
         _options = options.Value;
         _baseClient = baseClient ?? throw new ArgumentNullException(nameof(baseClient));
+        _walmartOrdersClient = walmartOrdersClient ?? throw new ArgumentNullException(nameof(walmartOrdersClient));
         _walmartNotificationsClient = walmartNotificationsClient ?? throw new ArgumentNullException(nameof(walmartNotificationsClient));
         _walmartItemsClient = walmartItemsClient ?? throw new ArgumentNullException(nameof(walmartItemsClient));
         _applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
@@ -49,12 +53,19 @@ public class Main : IMain
         // use this token for stopping the services
         var cancellationToken = _applicationLifetime.ApplicationStopping;
 
-        await TestingNotificationsAsync(cancellationToken);
+        var count = 0;
+        await foreach (var item in _walmartOrdersClient.ListAllAsync(new OrderQuery { Limit = 20, Status = "Created" }, cancellationToken)
+                                              .WithCancellation(cancellationToken))
+        {
+            _logger.LogInformation(item.PurchaseOrderId);
+            count++;
+        }
+
+        // await TestingNotificationsAsync(cancellationToken);
 
         // await TestingItemsAsync(cancellationToken);
         // await ListAllItemsAsync(cancellationToken);
         // await TokenDetailsAsync(cancellationToken);
-
         return 0;
     }
 
@@ -64,19 +75,20 @@ public class Main : IMain
         var newEvents =
             new SubscriptionEvent
             {
-                EventType = nameof(EventTypeEnum.OFFER_UNPUBLISHED),
+                EventType = nameof(EventTypeEnum.PO_LINE_AUTOCANCELLED),
                 EventVersion = "V1",
-                ResourceName = nameof(ResourceNameEnum.ITEM),
+                ResourceName = nameof(ResourceNameEnum.ORDER),
                 EventUrl = Configuration["WebhooksUrl"],
-                Status = nameof(StatusEnum.INACTIVE)
+                Status = nameof(StatusEnum.INACTIVE),
+                Headers = new SubscriptionEventHeader
+                {
+                    ContentType = "application/json"
+                }
             };
 
         var createdSubscription = await _walmartNotificationsClient.CreateAsync(newEvents, cancellationToken);
 
-        // 2. test
-        // var testResult = await _walmartNotificationsClient.TestAsync(createdSubscription, cancellationToken);
-
-        // 3. update
+        // 2. update
         var updateSubscription = new SubscriptionEvent
         {
             Status = nameof(StatusEnum.ACTIVE),
@@ -84,11 +96,20 @@ public class Main : IMain
 
         var updatedSubscription = await _walmartNotificationsClient.UpdateAsync(createdSubscription.SubscriptionId, updateSubscription, cancellationToken);
 
+        // 3. test not really needed upon creation of the event the sample data is send
+        // var testResult = await _walmartNotificationsClient.TestAsync(updatedSubscription, cancellationToken);
+
         // 4. delete
         var deletedResult = await _walmartNotificationsClient.DeleteAsync(updatedSubscription.SubscriptionId, cancellationToken);
         _logger.LogInformation("{deleteMessage}", deletedResult?.Message);
 
         var subscriptions = await _walmartNotificationsClient.ListAllAsync(cancellationToken);
+
+        foreach (var sub in subscriptions)
+        {
+            _logger.LogInformation("{id} - {type} - {url}", sub.SubscriptionId, sub.EventType, sub.EventUrl);
+        }
+
         var eventTypes = await _walmartNotificationsClient.ListAllEventTypesAsync(cancellationToken);
     }
 

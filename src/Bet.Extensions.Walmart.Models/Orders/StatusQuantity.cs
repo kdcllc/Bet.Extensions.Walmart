@@ -17,5 +17,7 @@ public class StatusQuantity
     [JsonPropertyName("amount")]
     [Required]
     public string? Amount { get; set; }
+
+    public static StatusQuantity Create() => new StatusQuantity { Amount = "1", UnitOfMeasurement = "EACH" };
 }
 

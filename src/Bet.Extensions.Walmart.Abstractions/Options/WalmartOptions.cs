@@ -29,4 +29,6 @@ public class WalmartOptions
     public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(120);
 
     public int Retry { get; set; } = 3;
+
+    public Func<Exception, bool>? OnDataErrorThrowEx { get; set; } = (ex) => false;
 }

@@ -34,6 +34,7 @@ public static class WalmartExtensions
     public static async Task<WalmartHttpRequestException?> ValidateAsync(
         this HttpResponseMessage response,
         Stream? content,
+        Func<Exception, bool> onDataErrorThrowEx,
         CancellationToken cancellationToken = default)
     {
         try
@@ -56,6 +57,11 @@ public static class WalmartExtensions
                     return exp;
                 }
                 catch { }
+            }
+
+            if (onDataErrorThrowEx(ex))
+            {
+                throw ex;
             }
 
             return wex;

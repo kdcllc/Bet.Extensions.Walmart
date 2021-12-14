@@ -26,3 +26,28 @@ If you like or are using this project to learn or start your solution, please gi
 ```csharp
     dotnet add package Bet.Extensions.Walmart.Abstractions
 ```
+
+
+## Notes
+
+- When testing with sandbox, the paging thru orders doesn't work
+- At times after setting the acknowledged on order and then shipment label creation will cause:
+
+```json
+{
+    "errors": {
+        "error": [{
+            "code": "INVALID_REQUEST_CONTENT.GMP_ORDER_API",
+            "field": "data",
+            "description": "INVALID_REQUEST_CONTENT :: Failed when called acknowledge API for '{actual__order_id}'.  Some or all qty in higher status",
+            "info": "Request content is invalid.",
+            "severity": "ERROR",
+            "category": "DATA",
+            "errorIdentifiers": {
+                "entry": []
+            }
+        }]
+    }
+}
+```
+- x

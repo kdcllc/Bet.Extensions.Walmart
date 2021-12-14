@@ -9,12 +9,11 @@
 
 > The second letter in the Hebrew alphabet is the ב bet/beit. Its meaning is "house". In the ancient pictographic Hebrew it was a symbol resembling a tent on a landscape.
 
-*Note: Pre-release packages are distributed via [feedz.io](https://f.feedz.io/kdcllc/bet-extensions-walmart/nuget/index.json).*
+_Note: Pre-release packages are distributed via [feedz.io](https://f.feedz.io/kdcllc/bet-extensions-walmart/nuget/index.json)._
 
 ## Summary
 
 Walmart Seller DotNetCore library. The main goal was to design a library that supports the latest functionality for `HttpClient` and `System.Text.Json`
-
 
 - [`Bet.Extensions.Walmart`](./src/Bet.Extensions.Walmart/)
 
@@ -42,6 +41,7 @@ If you like or are using this project to learn or start your solution, please gi
 - [x] [Token API](https://developer.walmart.com/api/us/mp/auth#operation/tokenAPI)
 
 ## [Item Management](https://developer.walmart.com/api/us/mp/items)
+
 - [x] [Retire an item](https://developer.walmart.com/api/us/mp/items#operation/retireAnItem)
 - [x] [Get Item Associations](https://developer.walmart.com/api/us/mp/items#operation/getItemAssociations)
 - [x] [Taxonomy](https://developer.walmart.com/api/us/mp/items#operation/getTaxonomyResponse)
@@ -53,19 +53,20 @@ If you like or are using this project to learn or start your solution, please gi
 - [ ] [Bulk Item Setup (Multiple)](https://developer.walmart.com/api/us/mp/items#operation/itemBulkUploads)
 
 ## [Notifications Management](https://developer.walmart.com/api/us/mp/notifications)
+
 - [x] [All subscriptions](https://developer.walmart.com/api/us/mp/notifications#operation/getAllSubscriptions)
 - [x] [Create subscription](https://developer.walmart.com/api/us/mp/notifications#operation/createSubscription)
 - [x] [Delete Subscription](https://developer.walmart.com/api/us/mp/notifications#operation/deleteSubscription)
 - [x] [Update Subscription](https://developer.walmart.com/api/us/mp/notifications#operation/updateSubscription)
 - [x] [Test Notification](https://developer.walmart.com/api/us/mp/notifications#operation/testNotification)
 - [x] [Event Types](https://developer.walmart.com/api/us/mp/notifications#operation/getEventTypes)
-      
 
 ## [Orders](https://developer.walmart.com/api/us/mp/orders#tag/Orders)
+
 - [x] [All orders](https://developer.walmart.com/api/us/mp/orders#operation/getAllOrders)
-- [ ] [All released orders](https://developer.walmart.com/api/us/mp/orders#operation/getAllReleasedOrders)
-- [ ] [An order](https://developer.walmart.com/api/us/mp/orders#operation/getAnOrder)
-- [ ] [Acknowledge Orders](https://developer.walmart.com/api/us/mp/orders#operation/acknowledgeOrders)
-- [ ] [Cancel Order Lines](https://developer.walmart.com/api/us/mp/orders#operation/cancelOrderLines)
-- [ ] [Refund Order Lines](https://developer.walmart.com/api/us/mp/orders#operation/refundOrderLines)
-- [ ] [Ship Order Lines](https://developer.walmart.com/api/us/mp/orders#operation/shippingUpdates)
+- [x] [All released orders](https://developer.walmart.com/api/us/mp/orders#operation/getAllReleasedOrders)
+- [x] [An order](https://developer.walmart.com/api/us/mp/orders#operation/getAnOrder)
+- [x] [Acknowledge Orders](https://developer.walmart.com/api/us/mp/orders#operation/acknowledgeOrders)
+- [x] [Cancel Order Lines](https://developer.walmart.com/api/us/mp/orders#operation/cancelOrderLines)
+- [x] [Refund Order Lines](https://developer.walmart.com/api/us/mp/orders#operation/refundOrderLines)
+- [x] [Ship Order Lines](https://developer.walmart.com/api/us/mp/orders#operation/shippingUpdates)

@@ -40,7 +40,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bet.Extensions.Walmart.Work
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{356880B4-CF22-4E06-9B98-CB294ACD4E54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalmartWeb", "src\WalmartWeb\WalmartWeb.csproj", "{5B256C5A-7640-404B-BBBD-65F924FA101C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WalmartWeb", "src\WalmartWeb\WalmartWeb.csproj", "{5B256C5A-7640-404B-BBBD-65F924FA101C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

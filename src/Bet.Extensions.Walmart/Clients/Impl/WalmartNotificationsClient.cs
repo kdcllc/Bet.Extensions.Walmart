@@ -62,7 +62,7 @@ internal class WalmartNotificationsClient : IWalmartNotificationsClient
 
         var content = await response.Content.ReadAsStreamAsync(cancellationToken);
 
-        var ex = await response.ValidateAsync(content, cancellationToken);
+        var ex = await response.ValidateAsync(content, _options.OnDataErrorThrowEx, cancellationToken);
         if (ex != null)
         {
             _logger.LogError(ex, "{name}", nameof(UpdateAsync));
@@ -81,7 +81,7 @@ internal class WalmartNotificationsClient : IWalmartNotificationsClient
 
         var content = await response.Content.ReadAsStreamAsync(cancellationToken);
 
-        var ex = await response.ValidateAsync(content, cancellationToken);
+        var ex = await response.ValidateAsync(content, _options.OnDataErrorThrowEx, cancellationToken);
         if (ex != null)
         {
             _logger.LogError(ex, "{name}", nameof(CreateAsync));
@@ -100,7 +100,7 @@ internal class WalmartNotificationsClient : IWalmartNotificationsClient
         var response = await _client.HttpClient.DeleteAsync(requestUri, cancellationToken);
         var content = await response.Content.ReadAsStreamAsync(cancellationToken);
 
-        var ex = await response.ValidateAsync(content, cancellationToken);
+        var ex = await response.ValidateAsync(content, _options.OnDataErrorThrowEx, cancellationToken);
         if (ex != null)
         {
             _logger.LogError(ex, "{name}", nameof(DeleteAsync));
@@ -118,7 +118,7 @@ internal class WalmartNotificationsClient : IWalmartNotificationsClient
         var response = await _client.HttpClient.PostAsJsonAsync<SubscriptionEvent>(requesrtUri, subscription, cancellationToken);
         var content = await response.Content.ReadAsStreamAsync(cancellationToken);
 
-        var ex = await response.ValidateAsync(content, cancellationToken);
+        var ex = await response.ValidateAsync(content, _options.OnDataErrorThrowEx, cancellationToken);
         if (ex != null)
         {
             _logger.LogError(ex, "{name}", nameof(TestAsync));

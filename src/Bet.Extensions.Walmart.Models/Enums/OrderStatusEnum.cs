@@ -1,6 +1,6 @@
 ﻿namespace Bet.Extensions.Walmart.Models;
 
-public enum OrderStatusLineEnum
+public enum OrderStatusEnum
 {
     Created,
     Acknowledged,

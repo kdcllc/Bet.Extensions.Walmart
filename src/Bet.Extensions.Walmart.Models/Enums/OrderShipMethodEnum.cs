@@ -1,6 +1,6 @@
 ﻿namespace Bet.Extensions.Walmart.Models;
 
-public enum ShipMethodEnum
+public enum OrderShipMethodEnum
 {
     Standard,
     Express,

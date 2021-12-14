@@ -10,7 +10,9 @@ using Bet.Extensions.Walmart.Models.Authentication;
 using Bet.Extensions.Walmart.Models.Items;
 using Bet.Extensions.Walmart.Models.Items.Queries;
 using Bet.Extensions.Walmart.Models.Notifications;
+using Bet.Extensions.Walmart.Models.Orders;
 using Bet.Extensions.Walmart.Models.Orders.Queries;
+using Bet.Extensions.Walmart.Models.Orders.Ship;
 
 using Microsoft.Extensions.Options;
 
@@ -53,13 +55,9 @@ public class Main : IMain
         // use this token for stopping the services
         var cancellationToken = _applicationLifetime.ApplicationStopping;
 
-        var count = 0;
-        await foreach (var item in _walmartOrdersClient.ListAllAsync(new OrderQuery { Limit = 20, Status = "Created" }, cancellationToken)
-                                              .WithCancellation(cancellationToken))
-        {
-            _logger.LogInformation(item.PurchaseOrderId);
-            count++;
-        }
+        await ListAllOrdersAsync(cancellationToken);
+
+        // await ShipOrdersAsync(cancellationToken);
 
         // await TestingNotificationsAsync(cancellationToken);
 
@@ -67,6 +65,103 @@ public class Main : IMain
         // await ListAllItemsAsync(cancellationToken);
         // await TokenDetailsAsync(cancellationToken);
         return 0;
+    }
+
+    private async Task ListAllOrdersAsync(CancellationToken cancellationToken)
+    {
+        var count = 0;
+        await foreach (var item in _walmartOrdersClient.ListAllReleasedAsync(new OrderQuery { Limit = 2 }, cancellationToken)
+                                              .WithCancellation(cancellationToken))
+        {
+            _logger.LogInformation(item.PurchaseOrderId);
+
+            var order = await _walmartOrdersClient.GetAsync(item.PurchaseOrderId, cancellationToken);
+
+            count++;
+        }
+
+        _logger.LogInformation("{releaseOrdersCount}", count);
+
+        count = 0;
+        await foreach (var item in _walmartOrdersClient.ListAllAsync(new OrderQuery { Limit = 20, Status = "Created" }, cancellationToken)
+                                              .WithCancellation(cancellationToken))
+        {
+            _logger.LogInformation(item.PurchaseOrderId);
+            count++;
+        }
+
+        _logger.LogInformation("{createdOrdersCount}", count);
+    }
+
+    private async Task ShipOrdersAsync(CancellationToken cancellationToken)
+    {
+        var list = new List<(string po, string label)>
+        {
+            ("", ""),
+        };
+
+        foreach (var item in list)
+        {
+            await ShipOrderAsync(item.po, item.label, cancellationToken);
+        }
+    }
+
+    private async Task ShipOrderAsync(string customerOrderId, string shipmentLabel, CancellationToken cancellationToken)
+    {
+        await foreach (var item in _walmartOrdersClient.ListAllAsync(new OrderQuery { Limit = 20, CustomerOrderId = customerOrderId }, cancellationToken)
+                                      .WithCancellation(cancellationToken))
+        {
+            _logger.LogInformation("{purchaseOrderId} {customerOrderId} {lineCount}", item.PurchaseOrderId, item.CustomerOrderId, item.OrderLines.OrderLine.Count());
+
+            var ackO = await _walmartOrdersClient.AcknowledgeAsync(item.PurchaseOrderId, cancellationToken);
+
+            await Task.Delay(100);
+
+            var lineNumbers = item.OrderLines.OrderLine.Count();
+
+            var list = new List<OrderLine>();
+
+            var ln = 1;
+
+            for (var i = 0; i < lineNumbers; i++)
+            {
+                list.Add(new OrderLine
+                {
+                    LineNumber = ln.ToString(),
+                    OrderLineStatuses = new OrdeLineStatusList
+                    {
+                        OrderLineStatus = new List<OrderLineStatus>
+                        {
+                            new OrderLineStatus
+                            {
+                                Status = nameof(OrderStatusEnum.Shipped),
+                                StatusQuantity = StatusQuantity.Create(),
+                                TrackingInfo = new TrackingInfo
+                                {
+                                    ShipDateTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+                                    CarrierName = new CarrierName
+                                    {
+                                        Carrier = nameof(CarrierEnum.USPS)
+                                    },
+                                    MethodCode = nameof(OrderShipMethodEnum.Standard),
+                                    TrackingNumber = shipmentLabel
+                                }
+                            }
+                        }.ToArray(),
+                    }
+                });
+                ln++;
+            }
+
+            var shipment = new OrderShipment
+            {
+                OrderLines = new OrderLineList() { OrderLine = list.ToArray() }
+            };
+
+            var shipO = await _walmartOrdersClient.ShipAsync(item.PurchaseOrderId, shipment, cancellationToken);
+
+            _logger.LogInformation("Shipped: {purchaseOrderId} {trackingInfo} {name}", customerOrderId, shipmentLabel, item.ShippingInfo.PostalAddress.Name);
+        }
     }
 
     private async Task TestingNotificationsAsync(CancellationToken cancellationToken)

@@ -134,7 +134,7 @@ internal class WalmartItemsClient : IWalmartItemsClient
             cancellationToken);
         var content = await response.Content.ReadAsStreamAsync(cancellationToken);
 
-        var ex = await response.ValidateAsync(content, cancellationToken);
+        var ex = await response.ValidateAsync(content, _options.OnDataErrorThrowEx, cancellationToken);
         if (ex != null)
         {
             _logger.LogError(ex, "{name}", nameof(GetItemAssociationsAsync));

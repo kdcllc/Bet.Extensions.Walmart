@@ -1,4 +1,5 @@
-﻿using Bet.Extensions.Walmart.Abstractions;
+﻿using Bet.Extensions.Walmart;
+using Bet.Extensions.Walmart.Abstractions;
 using Bet.Extensions.Walmart.Abstractions.Options;
 using Bet.Extensions.Walmart.Authorize;
 using Bet.Extensions.Walmart.Clients;
@@ -46,10 +47,14 @@ public static class WalmartServiceExtensions
                     var options = sp.GetRequiredService<IOptions<WalmartOptions>>().Value;
                     var logger = loggerFactory.CreateLogger(request?.RequestUri?.ToString() ?? nameof(WalmartBaseClient));
 
+                    var retryOnInvalidContPolicy = Policy.Handle<WalmartHttpRequestException>().RetryAsync(options.Retry)
+                                                         .WithPolicyKey("WalmartretryOnInvalidContentPolicy");
+
                     return Policy.Handle<HttpRequestException>()
-                                         .OrTransientHttpStatusCode()
-                                         .RetryAsync(options.Retry)
-                                         .WithPolicyKey("WalmartTransientHttpPolicy");
+                                                         .OrTransientHttpStatusCode()
+                                                         .RetryAsync(options.Retry)
+                                                         .WithPolicyKey("WalmartTransientHttpPolicy")
+                                                         .WrapAsync(retryOnInvalidContPolicy);
                 });
 
         services.AddTransient<IWalmartItemsClient, WalmartItemsClient>();

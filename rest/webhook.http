@@ -1,0 +1,8 @@
+
+#@host=https://localhost:7092
+@host=https://ab28-2603-6080-e505-682-b5c7-2bd3-e15a-138c.ngrok.io
+
+POST {{host}}/webhooks
+Content-Type: application/json
+
+< ./data/po-created.json

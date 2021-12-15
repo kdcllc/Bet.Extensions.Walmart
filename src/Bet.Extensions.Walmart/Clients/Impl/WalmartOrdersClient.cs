@@ -48,6 +48,19 @@ internal class WalmartOrdersClient : IWalmartOrdersClient
     }
 
     /// <inheritdoc/>
+    public async Task<Order?> GetAsync(SingleOrderQuery query, CancellationToken cancellationToken)
+    {
+        var baseUrl = $"{_baseUrl}{query.PurchaseOrderId}";
+
+        var parameters = query.ToKeyValuePair();
+        var requestUri = parameters.CompileRequestUri(baseUrl);
+
+        var response = await _client.HttpClient.GetFromJsonAsync<OrderRoot>(requestUri, cancellationToken);
+
+        return response?.Order;
+    }
+
+    /// <inheritdoc/>
     public IAsyncEnumerable<Order> ListAllAsync(OrderQuery query, CancellationToken cancellationToken)
     {
         return ListOrdersAsync(_baseUrl, query, cancellationToken);

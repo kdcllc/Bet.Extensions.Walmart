@@ -70,12 +70,12 @@ public class Main : IMain
     private async Task ListAllOrdersAsync(CancellationToken cancellationToken)
     {
         var count = 0;
-        await foreach (var item in _walmartOrdersClient.ListAllReleasedAsync(new OrderQuery { Limit = 2 }, cancellationToken)
+        await foreach (var item in _walmartOrdersClient.ListAllReleasedAsync(new OrderQuery { ProductInfo = true, Limit = 2 }, cancellationToken)
                                               .WithCancellation(cancellationToken))
         {
             _logger.LogInformation(item.PurchaseOrderId);
 
-            var order = await _walmartOrdersClient.GetAsync(item.PurchaseOrderId, cancellationToken);
+            var order = await _walmartOrdersClient.GetAsync(new SingleOrderQuery { PurchaseOrderId = item.PurchaseOrderId, ProductInfo = true }, cancellationToken);
 
             count++;
         }

@@ -1,6 +1,9 @@
 ﻿namespace Bet.Extensions.Walmart.Models.Orders.Queries;
 
-public class OrderQuery
+/// <summary>
+/// This query is used with ListAsync Methods.
+/// </summary>
+public class OrderQuery : SingleOrderQuery
 {
     /// <summary>
     /// A seller-provided Product ID.
@@ -14,11 +17,6 @@ public class OrderQuery
     [JsonPropertyName("customerOrderId")]
     public string? CustomerOrderId { get; set; }
 
-    /// <summary>
-    /// The purchase order ID. One customer may have multiple purchase orders.
-    /// </summary>
-    [JsonPropertyName("purchaseOrderId")]
-    public string? PurchaseOrderId { get; set; }
 
     /// <summary>
     /// Status of purchase order line. Valid statuses are: Created, Acknowledged, Shipped, Delivered and Cancelled.
@@ -76,12 +74,7 @@ public class OrderQuery
     [JsonPropertyName("limit")]
     public int? Limit { get; set; }
 
-    /// <summary>
-    /// Default: "false"
-    /// Provides the image URL and product weight in response, if available.Allowed values are true or false.
-    /// </summary>
-    [JsonPropertyName("productInfo")]
-    public bool? ProductInfo { get; set; }
+
 
     /// <summary>
     /// Default: "SellerFulfilled"
@@ -95,13 +88,5 @@ public class OrderQuery
     /// </summary>
     [JsonPropertyName("shippingProgramType")]
     public bool? ShippingProgramType { get; set; }
-
-    /// <summary>
-    /// Default: "false"
-    /// Provides additional attributes - originalCustomerOrderID, orderType - related to Replacement order, in response,
-    /// if available.Allowed values are true or false.
-    /// </summary>
-    [JsonPropertyName("replacementInfo")]
-    public bool? ReplacementInfo { get; set; }
 }
 

@@ -23,7 +23,7 @@ public class PostalAddress
     /// </summary>
     [JsonPropertyName("address2")]
     [Required]
-    public object? Address2 { get; set; }
+    public string? Address2 { get; set; }
 
     /// <summary>
     /// The city of the shipping address.

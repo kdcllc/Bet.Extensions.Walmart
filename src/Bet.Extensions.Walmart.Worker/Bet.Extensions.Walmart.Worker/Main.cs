@@ -83,7 +83,7 @@ public class Main : IMain
         _logger.LogInformation("{releaseOrdersCount}", count);
 
         count = 0;
-        await foreach (var item in _walmartOrdersClient.ListAllAsync(new OrderQuery { Limit = 20, Status = "Created" }, cancellationToken)
+        await foreach (var item in _walmartOrdersClient.ListAllAsync(new OrderQuery { CreatedStartDate = DateTimeOffset.Parse("2021-07-01"), Limit = 20, Status = "Delivered" }, cancellationToken)
                                               .WithCancellation(cancellationToken))
         {
             _logger.LogInformation(item.PurchaseOrderId);
@@ -174,7 +174,7 @@ public class Main : IMain
                 EventVersion = "V1",
                 ResourceName = nameof(ResourceNameEnum.ORDER),
                 EventUrl = Configuration["WebhooksUrl"],
-                Status = nameof(StatusEnum.INACTIVE),
+                Status = nameof(EventStatusEnum.INACTIVE),
                 Headers = new SubscriptionEventHeader
                 {
                     ContentType = "application/json"
@@ -186,7 +186,7 @@ public class Main : IMain
         // 2. update
         var updateSubscription = new SubscriptionEvent
         {
-            Status = nameof(StatusEnum.ACTIVE),
+            Status = nameof(EventStatusEnum.ACTIVE),
         };
 
         var updatedSubscription = await _walmartNotificationsClient.UpdateAsync(createdSubscription.SubscriptionId, updateSubscription, cancellationToken);

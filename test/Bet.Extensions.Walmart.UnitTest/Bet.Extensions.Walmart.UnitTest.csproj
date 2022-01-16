@@ -12,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Data\OfferPublishdEvent.json" />
+	  <None Remove="Data\OfferPublishedEvent.json" />
 	  <None Remove="Data\OfferUnpublishedEvent.json" />
 	  <None Remove="Data\POLineAutoCancelledEvent.json" />
 	</ItemGroup>

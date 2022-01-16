@@ -42,7 +42,7 @@ app.MapGet("/webhooks", () =>
     return Results.Ok();
 });
 
-app.MapPost("/webhooks", async (Event @event) =>
+app.MapPost("/webhooks", async (POCreatedEvent @event) =>
 {
     // logger.LogInformation(@event.Source.EventType);
 

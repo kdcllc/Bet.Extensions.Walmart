@@ -70,12 +70,12 @@ public class Main : IMain
     private async Task ListAllOrdersAsync(CancellationToken cancellationToken)
     {
         var count = 0;
-        await foreach (var item in _walmartOrdersClient.ListAllReleasedAsync(new OrderQuery { Limit = 2 }, cancellationToken)
+        await foreach (var item in _walmartOrdersClient.ListAllReleasedAsync(new OrderQuery { ProductInfo = true, Limit = 2 }, cancellationToken)
                                               .WithCancellation(cancellationToken))
         {
             _logger.LogInformation(item.PurchaseOrderId);
 
-            var order = await _walmartOrdersClient.GetAsync(item.PurchaseOrderId, cancellationToken);
+            var order = await _walmartOrdersClient.GetAsync(new SingleOrderQuery { PurchaseOrderId = item.PurchaseOrderId, ProductInfo = true }, cancellationToken);
 
             count++;
         }
@@ -83,7 +83,7 @@ public class Main : IMain
         _logger.LogInformation("{releaseOrdersCount}", count);
 
         count = 0;
-        await foreach (var item in _walmartOrdersClient.ListAllAsync(new OrderQuery { Limit = 20, Status = "Created" }, cancellationToken)
+        await foreach (var item in _walmartOrdersClient.ListAllAsync(new OrderQuery { CreatedStartDate = DateTimeOffset.Parse("2021-07-01"), Limit = 20, Status = "Delivered" }, cancellationToken)
                                               .WithCancellation(cancellationToken))
         {
             _logger.LogInformation(item.PurchaseOrderId);
@@ -174,7 +174,7 @@ public class Main : IMain
                 EventVersion = "V1",
                 ResourceName = nameof(ResourceNameEnum.ORDER),
                 EventUrl = Configuration["WebhooksUrl"],
-                Status = nameof(StatusEnum.INACTIVE),
+                Status = nameof(EventStatusEnum.INACTIVE),
                 Headers = new SubscriptionEventHeader
                 {
                     ContentType = "application/json"
@@ -186,7 +186,7 @@ public class Main : IMain
         // 2. update
         var updateSubscription = new SubscriptionEvent
         {
-            Status = nameof(StatusEnum.ACTIVE),
+            Status = nameof(EventStatusEnum.ACTIVE),
         };
 
         var updatedSubscription = await _walmartNotificationsClient.UpdateAsync(createdSubscription.SubscriptionId, updateSubscription, cancellationToken);

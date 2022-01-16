@@ -1,0 +1,19 @@
+{
+	"source": {
+		"eventType": "OFFER_PUBLISHED",
+		"eventTime": "2021-01-21T01:09:08.000Z",
+		"eventId": "04d34580-61d4-11ea-9e23-cd38810ff7cw"
+	},
+	"payload": {
+		"partnerId": "10900014482",
+		"sku": "83852627",
+		"publishStatus": "PUBLISHED",
+		"lifecycleStatus": "ACTIVE",
+		"itemId": "771087594",
+		"itemName": "Torah Study",
+		"category": "BOOKS",
+		"totalNumberOfOffers": 28,
+		"sellerOfferPrice": 1100.72,
+		"sellerShippingPrice": 0.0
+	}
+}

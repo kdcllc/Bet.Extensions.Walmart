@@ -93,6 +93,15 @@ public interface IWalmartOrdersClient
     Task<Order?> GetAsync(string purchaseOrderId, CancellationToken cancellationToken);
 
     /// <summary>
+    /// <para>Retrieves an order detail for a specific purchaseOrderId with extra search critiria.</para>
+    /// <para><see href="https://developer.walmart.com/api/us/mp/orders#operation/getAnOrder"/>.</para>
+    /// </summary>
+    /// <param name="query"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<Order?> GetAsync(SingleOrderQuery query, CancellationToken cancellationToken);
+
+    /// <summary>
     /// <para>
     ///    You can cancel one or more order lines. You must include a purchaseOrderId when cancelling an order line.
     ///    The response to a successful call contains the order with the cancelled line items.

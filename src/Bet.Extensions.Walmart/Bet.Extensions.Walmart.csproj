@@ -16,4 +16,8 @@
 		<ProjectReference Include="..\Bet.Extensions.Walmart.Models\Bet.Extensions.Walmart.Models.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="$(AssemblyName).UnitTest" />
+	</ItemGroup>
+
 </Project>

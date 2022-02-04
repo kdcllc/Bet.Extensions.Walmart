@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bet.AspNetCore.Walmart\Bet.AspNetCore.Walmart.csproj" />
     <ProjectReference Include="..\Bet.Extensions.Walmart\Bet.Extensions.Walmart.csproj" />
   </ItemGroup>
 

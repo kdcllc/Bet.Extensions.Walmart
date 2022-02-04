@@ -24,6 +24,11 @@ public class WalmartOptions
     /// </summary>
     public bool IsSandBox { get; set; }
 
+    /// <summary>
+    /// Custom Url, for mock servers.
+    /// </summary>
+    public Uri? CustomUrl { get; set; }
+
     public string Version { get; set; } = "v3";
 
     public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(120);

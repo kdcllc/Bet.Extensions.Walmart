@@ -81,8 +81,10 @@ public class AuthorizeHandler : DelegatingHandler
     {
         try
         {
+            var baseUrl = _options.CustomUrl ?? _options.BaseUrl;
+
             var data = new StringContent("grant_type=client_credentials", Encoding.UTF8, "application/x-www-form-urlencoded");
-            var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{_options.BaseUrl}{_options.Version}/token")
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, $"{baseUrl}{_options.Version}/token")
             {
                 Content = data
             };

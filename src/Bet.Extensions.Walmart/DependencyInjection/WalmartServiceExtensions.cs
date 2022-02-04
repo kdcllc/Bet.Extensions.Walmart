@@ -31,10 +31,12 @@ public static class WalmartServiceExtensions
                 {
                     var options = sp.GetRequiredService<IOptions<WalmartOptions>>().Value;
                     client.Timeout = options.Timeout;
-                    client.BaseAddress = options.BaseUrl;
+
+                    client.BaseAddress = options?.CustomUrl ?? options?.BaseUrl;
+
                     client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                    var authHeader = ($"{options.ClientId}:{options.ClientSecret}").ToBase64String();
+                    var authHeader = ($"{options!.ClientId}:{options.ClientSecret}").ToBase64String();
 
                     client.DefaultRequestHeaders.Add("Authorization", $"Basic {authHeader}");
 

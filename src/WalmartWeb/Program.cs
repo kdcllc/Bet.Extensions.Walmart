@@ -1,6 +1,9 @@
 using System.Text.Json;
 
+using Bet.AspNetCore.Walmart.DependencyInjection;
 using Bet.Extensions.Walmart.Models.Notifications.Webhook;
+
+using WalmartWeb.EventHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,13 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddWalmartWebhooksEvents((o, c) =>
+{
+    o.UserName = "username";
+    o.Password = "password";
+})
+.AddWebhookEvent<POCreatedEventHandler, POCreatedEvent>(WebhookEvents.POCreated);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +42,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseWalmartWebhookEvents();
 
 // app.MapControllers();
 

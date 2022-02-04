@@ -55,6 +55,8 @@ public class Main : IMain
         // use this token for stopping the services
         var cancellationToken = _applicationLifetime.ApplicationStopping;
 
+        // var order = await _walmartOrdersClient.GetAsync("", cancellationToken);
+
         await ListAllOrdersAsync(cancellationToken);
 
         // await ShipOrdersAsync(cancellationToken);

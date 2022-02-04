@@ -12,12 +12,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Data\OfferPublishedEvent.json" />
-	  <None Remove="Data\OfferUnpublishedEvent.json" />
-	  <None Remove="Data\POLineAutoCancelledEvent.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
 		<PackageReference Include="xunit" Version="2.4.1" />

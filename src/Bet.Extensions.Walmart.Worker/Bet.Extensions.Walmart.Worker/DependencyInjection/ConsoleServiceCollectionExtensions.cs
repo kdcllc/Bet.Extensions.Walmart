@@ -6,6 +6,10 @@ public static class ConsoleServiceCollectionExtensions
     {
         services.AddScoped<IMain, Main>();
 
-        services.AddWalmartClient();
+        services.AddWalmartClient((o, sp) =>
+        {
+            // enable custom mock server here
+            // o.CustomUrl = new Uri("https://localhost:7297");
+        });
     }
 }

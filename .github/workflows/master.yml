@@ -18,7 +18,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     outputs:
-      Version: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      Version: ${{ steps.gitversion.outputs.MajorMinorPatch }}
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -63,7 +63,7 @@ jobs:
       - name: Display GitVersion outputs
         run: |
           echo "ShortSha: ${{ steps.gitversion.outputs.shortSha }}"
-          echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
+          echo "MajorMinorPatch: ${{ steps.gitversion.outputs.MajorMinorPatch }}"
           echo "VersionSourceSha: ${{ steps.gitversion.outputs.versionSourceSha }}"
           echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.commitsSinceVersionSource }}"
           echo "CommitDate: ${{ steps.gitversion.outputs.commitDate }}"
@@ -75,13 +75,13 @@ jobs:
         run: dotnet restore ${{ env.solution }} -v quiet
 
       - name: Build
-        run: dotnet build ${{ env.solution }} --configuration ${{ env.configuration }}  --no-restore -p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }}
+        run: dotnet build ${{ env.solution }} --configuration ${{ env.configuration }}  --no-restore -p:Version=${{ steps.gitversion.outputs.MajorMinorPatch }}
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
 
       - name: Package
-        run: dotnet pack --no-build --configuration ${{ env.configuration }}  --no-restore -p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }} -o packages
+        run: dotnet pack --no-build --configuration ${{ env.configuration }}  --no-restore -p:Version=${{ steps.gitversion.outputs.MajorMinorPatch }} -o packages
 
       - name: Publish Nuget Packages
         run: dotnet nuget push packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols true

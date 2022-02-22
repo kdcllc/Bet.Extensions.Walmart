@@ -1,0 +1,41 @@
+{
+    "source": {
+        "eventType": "PO_CREATED",
+        "eventTime": "2020-07-29T13:47:18.442Z",
+        "eventId": "04d868a0-d1a2-11ea-a710-459752d002e8"
+    },
+    "payload": {
+        "partnerId": "10020302332",
+        "purchaseOrderId": "2802123876439",
+        "customerOrderId": "4822046869501",
+        "orderDate": "2020-07-29T13:45:45Z",
+        "estimatedDeliveryDate": "2020-08-06T19:00:00Z",
+        "estimatedShipDate": "2020-07-31T03:00:00Z",
+        "orderLines": [{
+            "lineNumber": "1",
+            "sku": "05SA15031",
+            "productName": "Chatties Girls Flip Flops 13-1 M US Little Kid Cute Mix N Match Print Slip On Summer Thong Sandal F- Hello Summer",
+            "quantity": {
+                "unitOfMeasure": "EACH",
+                "measurementValue": "1"
+            },
+            "status": "Created",
+            "statusDate": "2020-07-29T13:47:18.216Z",
+            "shippingProgramType ": null,
+            "shippingMethod": "STANDARD"
+        }, {
+            "lineNumber": "2",
+            "sku": "05SA15003",
+            "productName": "Chatties Girls Flip Flops 13-1 M US Little Kid Cute Mix N Match Print Slip On Summer Thong Sandal E- Magical",
+            "quantity": {
+                "unitOfMeasure": "EACH",
+                "measurementValue": "1"
+            },
+            "status": "Created",
+            "statusDate": "2020-07-29T13:47:18.219Z",
+            "shippingProgramType ": null,
+            "shippingMethod": "STANDARD"
+        }],
+        "shipNodeType": "SellerFulfilled"
+    }
+}

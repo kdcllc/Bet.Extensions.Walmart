@@ -1,9 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Bet.Extensions.Options" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+		<PackageReference Include="Microsoft.Extensions.Http.Polly" />
+		<PackageReference Include="System.Net.Http.Json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Bet.Extensions.Walmart.Abstractions\Bet.Extensions.Walmart.Abstractions.csproj" />
+		<ProjectReference Include="..\Bet.Extensions.Walmart.Models\Bet.Extensions.Walmart.Models.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="$(AssemblyName).UnitTest" />
+	</ItemGroup>
 
 </Project>

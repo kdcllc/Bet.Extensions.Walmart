@@ -8,19 +8,19 @@
 	<PropertyGroup>
 		<RunCodeAnalysis>true</RunCodeAnalysis>
 		<NetCoreCommon>5.0.*</NetCoreCommon>
-		<BetCommonVersion>4.0.0</BetCommonVersion>
+		<BetCommonVersion>4.0.*</BetCommonVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<NetCoreCommon>6.0.0-rc.1.*</NetCoreCommon>
-		<!--<NetCoreCommon>6.0.0-rc.*</NetCoreCommon>-->
+		<NetCoreCommon>6.0.0*</NetCoreCommon>
 	</PropertyGroup>
 
 	<ItemGroup Label="NetCore">
 		<PackageReference Update="Microsoft.Extensions.Hosting" Version="$(NetCoreCommon)" />
 		<PackageReference Update="Microsoft.Extensions.Logging.Abstractions" Version="$(NetCoreCommon)" />
 		<PackageReference Update="Microsoft.Extensions.Logging" Version="$(NetCoreCommon)" />
-		<PackageReference Update="Microsoft.Extensions.Http.Polly" Version="$(NetCoreVersion)" />
+		<PackageReference Update="Microsoft.Extensions.Http.Polly" Version="$(NetCoreCommon)" />
+		<PackageReference Update="Microsoft.Extensions.Configuration.UserSecrets" Version="$(NetCoreCommon)" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -39,28 +39,28 @@
 	</ItemGroup>
 
 	<ItemGroup Label="Testing">
-		<PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+		<PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.0.0" />
 		<PackageReference Update="xunit" Version="2.4.1" />
 		<PackageReference Update="xunit.runner.visualstudio" Version="2.4.3">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Update="coverlet.collector" Version="3.0.3">
+		<PackageReference Update="coverlet.collector" Version="3.1.0">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup Label="SourceLink">
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup Label="Analyzers">
-		<PackageReference Include="Bet.CodeAnalyzers" Version="1.0.10">
+		<PackageReference Include="Bet.CodeAnalyzers" Version="1.0.12">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Bet.EditorConfig" Version="1.0.10">
+		<PackageReference Include="Bet.EditorConfig" Version="1.0.12">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

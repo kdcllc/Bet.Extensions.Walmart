@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		<PackageReference Include="Bet.Extensions.Options" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Bet.Extensions.Walmart\Bet.Extensions.Walmart.csproj" />
+	</ItemGroup>
+
+</Project>

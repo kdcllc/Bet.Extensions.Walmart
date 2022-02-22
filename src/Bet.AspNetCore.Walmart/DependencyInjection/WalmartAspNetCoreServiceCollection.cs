@@ -5,10 +5,9 @@ using Bet.Extensions.Walmart.Services.Impl;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Bet.AspNetCore.Walmart.DependencyInjection;
+namespace Microsoft.Extensions.DependencyInjection;
 
 public static class WalmartAspNetCoreServiceCollection
 {

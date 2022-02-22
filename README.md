@@ -13,9 +13,14 @@ _Note: Pre-release packages are distributed via [feedz.io](https://f.feedz.io/kd
 
 ## Summary
 
-Walmart Seller DotNetCore library. The main goal was to design a library that supports the latest functionality for `HttpClient` and `System.Text.Json`
+Walmart Seller DotNetCore library. The main goal was to design a library that supports the latest functionality for `HttpClient` for http communication and `System.Text.Json` for serialization and de-serialization for https://seller.walmart.com/order-management/details.
 
-- [`Bet.Extensions.Walmart`](./src/Bet.Extensions.Walmart/)
+- [`Bet.Extensions.Walmart.Abstractions`](./src/Bet.Extensions.Walmart.Abstractions/) - contains abstractions.
+- [`Bet.Extensions.Walmart.Models`](./src/Bet.Extensions.Walmart.Models/) - contains v3 models.
+- [`Bet.Extensions.Walmart`](./src/Bet.Extensions.Walmart/) - contains code to communicate with Walmart Seller Api v3.
+- [`Bet.AspNetCore.Walmart`](./src/Bet.AspNetCore.Walmart/) - contains a webhook/ notification framework.
+- [`Bet.Extensions.Walmart.Worker`](./src/Bet.Extensions.Walmart.Worker/) - a sample console application.
+- [`WalmartWeb`](./src/WalmartWeb/) - a sample web api application.
 
 ## Hire me
 
@@ -33,7 +38,7 @@ If you like or are using this project to learn or start your solution, please gi
     dotnet add package Bet.Extensions.Walmart
 ```
 
-## Implemented
+## Implemented Endpoints
 
 ### [Authentication & Authorization Management](https://developer.walmart.com/api/us/mp/auth)
 

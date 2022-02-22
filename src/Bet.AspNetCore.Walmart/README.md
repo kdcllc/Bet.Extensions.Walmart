@@ -11,7 +11,7 @@
 
 The purpose of this repo is to have a Walmart Webhook Event Api middleware to register and utilize.
 
-It provides with Basic Authorization.
+This library supports Basic Authorization for incoming webhooks.
 
 ## Hire me
 

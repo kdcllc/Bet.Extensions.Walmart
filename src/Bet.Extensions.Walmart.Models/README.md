@@ -9,7 +9,7 @@
 
 ## Summary
 
-The purpose of this repo is to have a Walmart API models representation that can be used by any project.
+The purpose of this repo is to have a Walmart API v3 models representation that can be used by any project.
 
 ## Hire me
 

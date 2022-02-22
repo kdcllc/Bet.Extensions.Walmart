@@ -1,6 +1,5 @@
 using System.Text.Json;
 
-using Bet.AspNetCore.Walmart.DependencyInjection;
 using Bet.Extensions.Walmart.Models.Notifications.Webhook;
 
 using WalmartWeb.EventHandlers;

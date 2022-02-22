@@ -71,20 +71,8 @@
 		<None Include="../../img/icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 
-	<!-- Workaround for this bug (replace the analyzer name with the one you need to exclude (filename only, no extension) -->
-	<Target Name="RemoveLoggingAnalyzer" BeforeTargets="CoreCompile">
-		<ItemGroup>
-			<Analyzer Remove="@(Analyzer)" Condition="%(FileName) == 'Microsoft.Extensions.Logging.Generators'" />
-		</ItemGroup>
-	</Target>
-
-
-	<!-- https://github.com/dotnet/sdk/issues/18148#issuecomment-860957180 -->
-	<!-- Workaround for this bug (replace the analyzer name with the one you need to exclude (filename only, no extension) -->
-	<Target Name="RemoveSystemTextJsonAnalyzer" BeforeTargets="CoreCompile">
-		<ItemGroup>
-			<Analyzer Remove="@(Analyzer)" Condition="%(FileName) == 'System.Text.Json.SourceGeneration'" />
-		</ItemGroup>
-	</Target>
-
+	<!-- https://github.com/NuGet/Home/issues/7601#issuecomment-575087506 -->
+	<ItemGroup>
+		<None Include="$(RepoRoot)LICENSE" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
 </Project>

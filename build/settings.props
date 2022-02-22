@@ -24,7 +24,6 @@
 		<PackageProjectUrl>https://github.com/kdcllc/Bet.Extensions.Walmart</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/kdcllc/Bet.Extensions.Walmart.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageLicense>https://github.com/kdcllc/Bet.Extensions.Walmart/master/LICENSE</PackageLicense>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageTags>dotnetcore, aspnetcore, dotnet, walmart seller, walmart, e-commerce</PackageTags>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -37,6 +36,10 @@
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 		<DebugType>Embedded</DebugType>
 		<EmbedAllSources>True</EmbedAllSources>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	</PropertyGroup>
 
 </Project>
